@@ -10,4 +10,8 @@ char.src="img/char.jpg";
 bg.src="img/phon.jpg";
 ice.src="img/ice.png";
 
+function draw(){
+	ctx.drawImage(bg, 0, 0);
+}
+ice.onload= draw;
 
