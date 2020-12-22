@@ -35,7 +35,7 @@ function moveOnce(event) {
 	// движение вправо
 	//проверяем нажатую клавишу/клик
 	if (event.key === "d" ) {
-		if (charCol < 740){
+		if (charCol < 740 || charRow <160){
 			charCol+=50;
 			draw();
 		}
