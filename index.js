@@ -36,28 +36,21 @@ function draw(){
 	ctx.drawImage(ice,700,230);
 	ctx.drawImage(ice,200,330);
 	ctx.drawImage(diamond,40,200);
-	if (move=="left"){
-		if (lastMove=="right"){
-			ctx.drawImage(char,charCol,charRow);
-		}
-		else{
+	switch (move){
+		case "left":
 			ctx.drawImage(charLeft,charCol,charRow);
-		}
-		}
-	else if (move=="right"){
-		if (lastMove=="left"){
+			break;
+		case "right":
+			ctx.drawImage(charRight,charCol,charRow);
+			break;
+		case "stay":
 			ctx.drawImage(char,charCol,charRow);
-		}
-		else{
-		ctx.drawImage(charRight,charCol,charRow);
-		}
-	}
-	else if (move=="jump"){
+			break;
+		case "jump":
 			ctx.drawImage(char,charCol,charRow);
-			
-	} 
-	else{
-		ctx.drawImage(char,charCol,charRow);
+			break
+		default:
+		    ctx.drawImage(char,charCol,charRow);
 	}
 }
 //расположение льдин
@@ -67,32 +60,31 @@ let iceRow = [700,230];
 function moveOnce(event) {
 	// движение вправо
 	//проверяем нажатую клавишу/клик
-	if (event.key === "d" ) {
-		if (charCol < 740 || charRow <160){
+	switch (event.code){
+		case "ArrowRight":
+			if (charCol < 740 || charRow <160){
 			charCol+=10;
-			lastMove=move;
 			move="right";
 			draw();
-		}
-	}
-	if (event.key === "a" ) {
-		if (charCol > 0){
-			charCol-=10;
-			lastMove=move;
+			}
+			break;
+		case "ArrowLeft":
+			if (charCol > 0){
+			charCol-=10;;
 			move="left";
 			draw();
-		}
-	}
-	if (event.key === "w" ) {
-		if (charRow==480){
+			}
+			break;
+		case "ArrowUp":
+			if (charRow==480){
 			charRow-=200;
-			lastMove=move;
 			move="jump";
 			draw();
 			for(let i=charRow; i<480; i++){                //падение после прыжка
 				 setTimeout(moveJump,300);		
 	        }
-}
+			break;
+		}
 }
 }
 //гравитация
@@ -102,4 +94,9 @@ function moveJump(){
 		move="jump";
 		draw();
 }
+function stay(){
+	move="stay";
+	draw();
+}
 document.onkeydown = moveOnce;
+document.onkeyup = stay;
