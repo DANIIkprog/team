@@ -27,6 +27,7 @@ bg.onload= draw;
 let charCol=10 , charRow= 480;
 let move="";
 let lastMove="";
+
 //рисуем объекты
 function draw(){
 	ctx.drawImage(bg, 0, 0);
@@ -42,7 +43,7 @@ function draw(){
 		else{
 			ctx.drawImage(charLeft,charCol,charRow);
 		}
-	}
+		}
 	else if (move=="right"){
 		if (lastMove=="left"){
 			ctx.drawImage(char,charCol,charRow);
@@ -51,10 +52,15 @@ function draw(){
 		ctx.drawImage(charRight,charCol,charRow);
 		}
 	}
+	else if (move=="jump"){
+			ctx.drawImage(char,charCol,charRow);
+			
+	}
 	else{
 		ctx.drawImage(char,charCol,charRow);
 	}
 }
+
 
 //движение 
 function moveOnce(event) {
@@ -75,6 +81,12 @@ function moveOnce(event) {
 			move="left";
 			draw();
 		}
+	}
+	if (event.key === "w" ) {
+			charRow-=200;
+			lastMove=move;
+			move="jump";
+			draw();
 	}
 }
 document.onkeydown = moveOnce;
