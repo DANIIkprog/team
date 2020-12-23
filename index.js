@@ -84,6 +84,7 @@ function moveOnce(event) {
 		}
 	}
 	if (event.key === "w" ) {
+		if (move !="jump" || charRow==480){
 			charRow-=200;
 			lastMove=move;
 			move="jump";
@@ -91,6 +92,7 @@ function moveOnce(event) {
 			for(let i=charRow; i<480; i++){                //падение после прыжка
 				 setTimeout(moveJump,300);		
 	        }
+}
 }
 }
 //гравитация
