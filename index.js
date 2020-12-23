@@ -55,12 +55,13 @@ function draw(){
 	else if (move=="jump"){
 			ctx.drawImage(char,charCol,charRow);
 			
-	}
+	} 
 	else{
 		ctx.drawImage(char,charCol,charRow);
 	}
 }
-
+//расположение льдин
+let iceRow = [700,230];
 
 //движение 
 function moveOnce(event) {
@@ -87,6 +88,16 @@ function moveOnce(event) {
 			lastMove=move;
 			move="jump";
 			draw();
-	}
+			for(let i=charRow; i<480; i++){                //падение после прыжка
+				 setTimeout(moveJump,300);		
+	        }
+}
+}
+//гравитация
+function moveJump(){
+        charRow+=1;
+		lastMove=move;
+		move="jump";
+		draw();
 }
 document.onkeydown = moveOnce;
