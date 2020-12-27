@@ -26,7 +26,6 @@ bg.onload= draw;
 //расположение
 let charCol=10 , charRow= 480;
 let move="";
-let lastMove="";
 
 //рисуем объекты
 function draw(){
@@ -62,7 +61,7 @@ function moveOnce(event) {
 	//проверяем нажатую клавишу/клик
 	switch (event.code){
 		case "ArrowRight":
-			if (charCol < 740 || charRow <160){
+			if (charCol < 751){
 			charCol+=10;
 			move="right";
 			draw();
@@ -81,7 +80,9 @@ function moveOnce(event) {
 			move="jump";
 			draw();
 			for(let i=charRow; i<480; i++){                //падение после прыжка
-				 setTimeout(moveJump,300);		
+				 setTimeout(moveJump,300);
+				 if ((charCol+76)<880 && (charCol+76)>700 && (i+200)==518) 
+				 	break;
 	        }
 			break;
 		}
@@ -89,8 +90,7 @@ function moveOnce(event) {
 }
 //гравитация
 function moveJump(){
-        charRow+=1;
-		lastMove=move;
+        charRow++;
 		move="jump";
 		draw();
 }
@@ -98,5 +98,10 @@ function stay(){
 	move="stay";
 	draw();
 }
+function shelk(){
+	console.log ("Клик в "+ event.clientX + ", "+ event.clientY +"!");
+	console.log ("Координаты в "+ charCol + ", "+ charRow +"!");
+}
 document.onkeydown = moveOnce;
 document.onkeyup = stay;
+document.onmouseup = shelk;
