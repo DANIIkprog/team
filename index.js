@@ -26,7 +26,6 @@ bg.onload= draw;
 //расположение
 let charCol=10 , charRow= 480;
 let move="";
-
 //рисуем объекты
 function draw(){
 	ctx.drawImage(bg, 0, 0);
@@ -55,6 +54,18 @@ function draw(){
 //расположение льдин
 let iceRow = [700,230];
 
+
+// проверяет запрыгнула на льдину или нет
+let iceCheck=function(charCol,charRow,i){
+	if ((charCol+76)<880 && (charCol+76)>700 && (i+200)==518) 
+		return 1;
+	if ((charCol+76)<680 && (charCol+76)>500 && (i+200)==418) 
+		return 1;
+	if ((charCol+76)<880 && (charCol+76)>700 && (i+200)==318) 
+		return 1;
+	if ((charCol+76)<380 && (charCol+76)>200 && (i+200)==418) 
+		return 1;
+}
 //движение 
 function moveOnce(event) {
 	// движение вправо
@@ -75,17 +86,14 @@ function moveOnce(event) {
 			}
 			break;
 		case "ArrowUp":
-			if (charRow==480){
 			charRow-=200;
 			move="jump";
 			draw();
 			for(let i=charRow; i<480; i++){                //падение после прыжка
 				 setTimeout(moveJump,300);
-				 if ((charCol+76)<880 && (charCol+76)>700 && (i+200)==518) 
-				 	break;
+				 if(iceCheck(charCol,charRow,i)==1)break;
 	        }
 			break;
-		}
 }
 }
 //гравитация
@@ -98,6 +106,7 @@ function stay(){
 	move="stay";
 	draw();
 }
+// чтобы лучше понимать что происходит
 function shelk(){
 	console.log ("Клик в "+ event.clientX + ", "+ event.clientY +"!");
 	console.log ("Координаты в "+ charCol + ", "+ charRow +"!");
